@@ -3,12 +3,15 @@ package code;
 public class ParticipantMenu extends Menu<Meeting>{
     private Participant participant;
     private ConsoleInput input;
+    private ConsoleOutput output;
 
     public ParticipantMenu(ConsoleInput input,
+                           ConsoleOutput output,
                            Participant participant) {
         super(input);
 
         this.input = input;
+        this.output = output;
         this.participant = participant;
     }
 
@@ -16,20 +19,16 @@ public class ParticipantMenu extends Menu<Meeting>{
     public void run() {
         boolean more = true;
 
-        if (!participant.getChangesNotifications().isEmpty()) {
-            System.out.println("Some of your meetings have been changed.");
+        if (!participant.getChangesNotification().isEmpty()) {
             int i = 1;
-            for (String s: participant.getChangesNotifications()) {
-                System.out.println(i++ + ") " + s);
+            for (String s: participant.getChangesNotification()) {
+                System.out.println(s);
             }
-            participant.emptyChangesNotifications();
-
-            System.out.println();
         }
 
         //Add appointment from other participants.
         if (!participant.getCollabMeetings().isEmpty()) {
-            System.out.println("You have new meeting to add.");
+            System.out.println("You have new meeting to add");
 
             for (Meeting meeting : participant.getCollabMeetings()) {
                 System.out.println(meeting.toString());
@@ -50,8 +49,6 @@ public class ParticipantMenu extends Menu<Meeting>{
             }
 
             participant.emptyCollabAppointments();
-
-            System.out.println();
         }
 
         if (!participant.getNotifications().isEmpty()) {
@@ -60,8 +57,6 @@ public class ParticipantMenu extends Menu<Meeting>{
                 System.out.println(notification.toString());
             }
             participant.emptyNotifications();
-
-            System.out.println();
         }
 
         while (more) {
@@ -81,13 +76,13 @@ public class ParticipantMenu extends Menu<Meeting>{
                         System.out.print("  Enter your appointment description: ");
                         String description = this.input.nextLine().trim();
 
-                        System.out.print("  Enter your appointment date (dd-mm-yyyy): ");
+                        System.out.print("  Enter your appointment date: ");
                         String date = this.input.nextLine().trim();
 
-                        System.out.print("  Enter your appointment starting time (hh:mm): ");
+                        System.out.print("  Enter your appointment starting time: ");
                         String from = this.input.nextLine().trim();
 
-                        System.out.print("  Enter your appointment ending time (hh:mm): ");
+                        System.out.print("  Enter your appointment ending time: ");
                         String to = this.input.nextLine().trim();
 
                         String menu = description + " " + date + " " + from + " " + to;
@@ -116,7 +111,8 @@ public class ParticipantMenu extends Menu<Meeting>{
                 case "C" -> {
                     System.out.println();
 
-                    new MeetingsMenu(this.input, participant.getMeetingCalendar(),
+                    new MeetingsMenu(this.input, this.output,
+                            participant.getMeetingCalendar(),
                             participant.getRank(),
                             participant.getOrganisation().getAllPersons()).run();
 

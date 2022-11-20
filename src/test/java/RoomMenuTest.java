@@ -7,13 +7,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class RoomMenuTest {
     RoomMenu sut;
     ConsoleInput input;
+    ConsoleOutput output;
     Room room;
 
     @BeforeEach
     void setUp() {
         input = Mockito.mock(ConsoleInput.class);
+        output = Mockito.mock(ConsoleOutput.class);
         room = new Room("Test");
-        sut = new RoomMenu(input, room);
+        sut = new RoomMenu(input, output, room);
     }
 
     @Test
@@ -68,6 +70,19 @@ class RoomMenuTest {
         sut.run();
 
         assertFalse(room.getRequirements().get("test"));
+    }
+
+    @Test
+    void testMenuItem_ShowRequirements() {
+        Mockito.when(input.nextLine()).thenReturn("S", "B");
+
+        sut.run();
+
+        Mockito.verify(output).printf("    %d) %s, %s", 1, "Internet connection", "excluded");
+        Mockito.verify(output).printf("    %d) %s, %s", 2, "Laptop", "excluded");
+        Mockito.verify(output).printf("    %d) %s, %s", 3, "Projector", "excluded");
+        Mockito.verify(output).printf("    %d) %s, %s", 4, "Videoconferencing facilities", "excluded");
+        Mockito.verify(output).printf("    %d) %s, %s", 5, "Whiteboard", "excluded");
     }
 
     @Test

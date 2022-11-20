@@ -1,16 +1,21 @@
 package code;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class RoomMenu extends Menu<String>{
     private Room room;
     private ConsoleInput input;
+    private ConsoleOutput output;
 
-    public RoomMenu(ConsoleInput input, Room room) {
+    public RoomMenu(ConsoleInput input,
+                    ConsoleOutput output,
+                    Room room) {
         super(input);
 
         this.room = room;
         this.input = input;
+        this.output = output;
     }
 
     @Override
@@ -100,8 +105,12 @@ public class RoomMenu extends Menu<String>{
 
     public void showRequirements(HashMap<String, Boolean> requirements) {
         int count = 0;
-        for (String i: requirements.keySet()) {
-            System.out.printf("    %d) %s, ", count, i, (requirements.get(i)) ? "included" : "excluded");
+
+        String[] reqArray = new String[requirements.size()];
+        Arrays.sort(requirements.keySet().toArray(reqArray));
+
+        for (String i: reqArray) {
+            output.printf("    %d) %s, %s", ++count, i, (requirements.get(i)) ? "included" : "excluded");
         }
     }
 }

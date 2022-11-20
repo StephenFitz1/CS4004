@@ -2,13 +2,16 @@ package code;
 
 public class OrganisationMenu extends Menu<Participant> {
     private ConsoleInput input;
+    private ConsoleOutput output;
     private Organisation organisation;
 
     public OrganisationMenu(ConsoleInput input,
+                            ConsoleOutput output,
             Organisation organisation) {
         super(input);
 
         this.input = input;
+        this.output = output;
         this.organisation = organisation;
     }
 
@@ -54,7 +57,7 @@ public class OrganisationMenu extends Menu<Participant> {
                     if (temp != null) {
                         System.out.println();
 
-                        new ParticipantMenu(this.input, temp).run();
+                        new ParticipantMenu(this.input, this.output, temp).run();
                     }
 
                     System.out.println();

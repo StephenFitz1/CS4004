@@ -11,10 +11,11 @@ class StartMenuTest {
     @Test
     void testMenuItem_AddOrganisation() {
         var input = Mockito.mock(ConsoleInput.class);
+        var output = Mockito.mock(ConsoleOutput.class);
 
         Mockito.when(input.nextLine()).thenReturn("A","test", "level1", "N", "Q");
 
-        var sut = new StartMenu(input);
+        var sut = new StartMenu(input, output);
 
         sut.run();
 
@@ -23,12 +24,48 @@ class StartMenuTest {
     }
 
     @Test
+    void testMenuItem_Cannot_AddOrganisation_With_EmptyName() {
+        var input = Mockito.mock(ConsoleInput.class);
+        var output = Mockito.mock(ConsoleOutput.class);
+
+        Mockito.when(input.nextLine()).thenReturn("A","", "orgName", "level1", "N", "Q");
+
+        var sut = new StartMenu(input, output);
+
+        sut.run();
+
+        Mockito.verify(output).println("    Error: You can not enter empty name for organisation");
+
+        assertEquals(1, sut.getOrganisations().size());
+        assertEquals("orgName", sut.getOrganisations().get(0).toString());
+    }
+
+    @Test
+    void testMenuItem_Cannot_AddOrganisation_With_EmptyHierarchyName() {
+        var input = Mockito.mock(ConsoleInput.class);
+        var output = Mockito.mock(ConsoleOutput.class);
+
+        Mockito.when(input.nextLine()).thenReturn("A", "orgName", "", "level1", "N", "Q");
+
+        var sut = new StartMenu(input, output);
+
+        sut.run();
+
+        Mockito.verify(output).println("    Error: you can not enter empty name for hierarchy level.");
+
+        assertEquals(1, sut.getOrganisations().size());
+        assertEquals("orgName", sut.getOrganisations().get(0).toString());
+    }
+
+
+    @Test
     void testMenuItem_Add() {
         var input = Mockito.mock(ConsoleInput.class);
+        var output = Mockito.mock(ConsoleOutput.class);
 
         Mockito.when(input.nextLine()).thenReturn("A","test", "level1", "Y", "level2", "N", "Q");
 
-        var sut = new StartMenu(input);
+        var sut = new StartMenu(input, output);
 
         sut.run();
 
@@ -48,11 +85,12 @@ class StartMenuTest {
     @Test
     void testMenuItem_AddMultipleOrganisations() {
         var input = Mockito.mock(ConsoleInput.class);
+        var output = Mockito.mock(ConsoleOutput.class);
 
         Mockito.when(input.nextLine()).thenReturn("A","test", "level1", "Y", "level2", "N",
                 "A", "test1", "title1", "Y", "title2", "N", "Q");
 
-        var sut = new StartMenu(input);
+        var sut = new StartMenu(input, output);
 
         sut.run();
 
@@ -100,13 +138,14 @@ class StartMenuTest {
     @Test
     void testMenuItem_RemoveOrganisation() {
         ConsoleInput input = Mockito.mock(ConsoleInput.class);
+        var output = Mockito.mock(ConsoleOutput.class);
 
         Mockito.when(input.nextLine()).thenReturn("A","test", "level1", "Y", "level2", "N",
                 "A", "test1", "title1", "Y", "title2", "N",
                 "R", "1", "Q");
         Mockito.when(input.nextInt()).thenCallRealMethod();
 
-        StartMenu sut = new StartMenu(input);
+        StartMenu sut = new StartMenu(input, output);
 
         sut.run();
 

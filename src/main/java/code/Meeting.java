@@ -173,10 +173,12 @@ public class Meeting {
             }
 
             for (Participant p: participants) {
-                p.addChangeNotification("Date was changed from " + toString() + " to " + newDate);
+                p.addChangeNotification("Date was changed from " + toString() + "\n" +
+                        "to " + newDate);
             }
 
-            owner.addChangeNotification("Date was changed from " + toString() + " to " + newDate);
+            owner.addChangeNotification("Date was changed from " + toString() + "\n" +
+                    "to " + newDate);
 
             date = new MeetingDate(newDate);
 

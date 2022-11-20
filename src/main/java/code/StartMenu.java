@@ -6,11 +6,14 @@ import java.util.ArrayList;
 public class StartMenu extends Menu<Organisation> {
     private ArrayList<Organisation> organisations;
     private ConsoleInput input;
+    private ConsoleOutput output;
 
-    public StartMenu(ConsoleInput input) {
+    public StartMenu(ConsoleInput input,
+                     ConsoleOutput output) {
         super(input);
 
         this.input = input;
+        this.output = output;
         this.organisations = new ArrayList<>();
     }
 
@@ -38,8 +41,8 @@ public class StartMenu extends Menu<Organisation> {
                     String name = this.input.nextLine();
 
                     while (name.isBlank()) {
-                        System.out.println("You can not enter empty name for organisation");
-                        System.out.print("    Enter organisation name: ");
+                        output.println("    Error: You can not enter empty name for organisation");
+                        output.print("    Enter organisation name: ");
                         name = this.input.nextLine();
                     }
 
@@ -47,12 +50,12 @@ public class StartMenu extends Menu<Organisation> {
 
                     System.out.println("Set-up hierarchy levels (from the bottom up, first entry is lowest level):");
                     while (true) {
-                        System.out.print("    Enter title: ");
+                        System.out.print("    Enter hierarchy level name: ");
                         var title = this.input.nextLine();
 
                         while (title.isBlank()) {
-                            System.out.println("You can not enter empty name for title");
-                            System.out.print("    Enter title name: ");
+                            output.println("    Error: you can not enter empty name for hierarchy level.");
+                            output.print("    Enter level name: ");
                             title = this.input.nextLine();
                         }
 
@@ -82,7 +85,7 @@ public class StartMenu extends Menu<Organisation> {
                     if (organisation != null) {
                         System.out.println();
 
-                        new OrganisationMenu(this.input, organisation).run();
+                        new OrganisationMenu(this.input, this.output, organisation).run();
                     }
 
                     System.out.println();

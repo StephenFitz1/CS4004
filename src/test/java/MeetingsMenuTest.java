@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MeetingsMenuTest {
     MeetingsMenu sut;
     ConsoleInput input;
+    ConsoleOutput output;
     Organisation organisation;
     Participant participant;
     Participant secondParticipant;
@@ -25,7 +26,7 @@ class MeetingsMenuTest {
 
         participant.addAppointment("test appointment 11.11.1111 12.00 13.00");
 
-        sut = new MeetingsMenu(input, participant.getMeetingCalendar(),
+        sut = new MeetingsMenu(input, output, participant.getMeetingCalendar(),
                 participant.getRank(), organisation.getAllPersons());
     }
 
@@ -164,7 +165,7 @@ class MeetingsMenuTest {
 
         sut.run();
 
-        sut = new MeetingsMenu(input, participant.getMeetingCalendar(),
+        sut = new MeetingsMenu(input, output, participant.getMeetingCalendar(),
                 secondParticipant.getRank(), organisation.getAllPersons());
 
         sut.run();
@@ -181,7 +182,7 @@ class MeetingsMenuTest {
 
         sut.run();
 
-        sut = new MeetingsMenu(input, participant.getMeetingCalendar(),
+        sut = new MeetingsMenu(input, output, participant.getMeetingCalendar(),
                 secondParticipant.getRank(), organisation.getAllPersons());
 
         sut.run();
@@ -198,7 +199,7 @@ class MeetingsMenuTest {
 
         sut.run();
 
-        sut = new MeetingsMenu(input, participant.getMeetingCalendar(),
+        sut = new MeetingsMenu(input, output, participant.getMeetingCalendar(),
                 secondParticipant.getRank(), organisation.getAllPersons());
 
         sut.run();
@@ -215,7 +216,7 @@ class MeetingsMenuTest {
 
         sut.run();
 
-        sut = new MeetingsMenu(input, participant.getMeetingCalendar(),
+        sut = new MeetingsMenu(input, output, participant.getMeetingCalendar(),
                 secondParticipant.getRank(), organisation.getAllPersons());
 
         sut.run();
@@ -229,7 +230,7 @@ class MeetingsMenuTest {
 
         sut.run();
 
-        sut = new MeetingsMenu(input, participant.getMeetingCalendar(),
+        sut = new MeetingsMenu(input, output, participant.getMeetingCalendar(),
                 secondParticipant.getRank(), organisation.getAllPersons());
 
         sut.run();
@@ -243,7 +244,7 @@ class MeetingsMenuTest {
 
         sut.run();
 
-        sut = new MeetingsMenu(input, participant.getMeetingCalendar(),
+        sut = new MeetingsMenu(input, output, participant.getMeetingCalendar(),
                 secondParticipant.getRank(), organisation.getAllPersons());
 
         sut.run();

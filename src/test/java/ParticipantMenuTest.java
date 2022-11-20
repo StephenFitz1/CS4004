@@ -8,19 +8,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class ParticipantMenuTest {
     ParticipantMenu sut;
     ConsoleInput input;
+    ConsoleOutput output;
     Participant participant;
     Organisation org;
 
     @BeforeEach
     void setSut() {
         input = Mockito.mock(ConsoleInput.class);
-        input = Mockito.mock(ConsoleInput.class);
+        output = Mockito.mock(ConsoleOutput.class);
         org = new Organisation("test", input);
         org.setHierarchy("title 1");
         org.setHierarchy("title 2");
         org.addPerson("test", "title 1");
         participant = org.getAllPersons().get(0);
-        sut = new ParticipantMenu(input, participant);
+        sut = new ParticipantMenu(input, output, participant);
     }
 
     @Test
@@ -85,7 +86,7 @@ class ParticipantMenuTest {
 
         sut.run();
 
-        var sut1 = new ParticipantMenu(input, secondParticipant);
+        var sut1 = new ParticipantMenu(input, output, secondParticipant);
         sut1.run();
 
         assertEquals(0, secondParticipant.getCollabMeetings().size());
@@ -106,7 +107,7 @@ class ParticipantMenuTest {
 
         sut.run();
 
-        var sut1 = new ParticipantMenu(input, participant);
+        var sut1 = new ParticipantMenu(input, output, participant);
         sut1.run();
 
         assertEquals(0, participant.getCollabMeetings().size());

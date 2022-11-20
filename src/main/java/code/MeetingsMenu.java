@@ -4,18 +4,21 @@ import java.util.ArrayList;
 
 public class MeetingsMenu extends Menu<Meeting> {
     private ConsoleInput input;
+    private ConsoleOutput output;
     private MeetingCalendar appointments;
     private ArrayList<Participant> participants;
     private int rankOfParticipant;
 
     public MeetingsMenu(
             ConsoleInput input,
+            ConsoleOutput output,
             MeetingCalendar appointments,
             int rank,
             ArrayList<Participant> participants) {
         super(input);
 
         this.input = input;
+        this.output = output;
         this.appointments = appointments;
         this.rankOfParticipant = rank;
         this.participants = participants;
@@ -115,7 +118,7 @@ public class MeetingsMenu extends Menu<Meeting> {
                                 System.out.println();
                             }
                             case "S" -> {
-                                System.out.print("Enter new starting time (hh:mm):");
+                                System.out.print("Enter new starting time:");
                                 var temp = this.input.nextLine();
 
                                 var result = meeting.changeAppointmentStartingTime(temp, rankOfParticipant);
@@ -129,7 +132,7 @@ public class MeetingsMenu extends Menu<Meeting> {
                                 System.out.println();
                             }
                             case "E" -> {
-                                System.out.println("Enter new ending time (hh:mm):");
+                                System.out.println("Enter new ending time:");
                                 var temp = this.input.nextLine();
 
                                 var result = meeting.changeAppointmentEndingTime(temp, rankOfParticipant);
@@ -170,7 +173,7 @@ public class MeetingsMenu extends Menu<Meeting> {
                             case "Q" -> {
                                 if (meeting.getRank() <= rankOfParticipant) {
                                     System.out.println();
-                                    new RoomMenu(this.input, meeting.getRoom()).run();
+                                    new RoomMenu(this.input, this.output, meeting.getRoom()).run();
                                     System.out.println();
                                 } else {
                                     System.out.println("You can not change this appointment.");
@@ -215,7 +218,7 @@ public class MeetingsMenu extends Menu<Meeting> {
                 }
             }
 
-            System.out.println("(You can not pick owner)");
+            System.out.println("You can not pick owner.");
             System.out.print("Pick a line above: ");
 
             while (true) {

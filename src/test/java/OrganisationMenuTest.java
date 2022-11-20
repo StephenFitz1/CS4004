@@ -1,4 +1,5 @@
 import code.ConsoleInput;
+import code.ConsoleOutput;
 import code.Organisation;
 import code.OrganisationMenu;
 import org.junit.jupiter.api.*;
@@ -9,15 +10,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class OrganisationMenuTest {
     OrganisationMenu sut;
     ConsoleInput input;
+    ConsoleOutput output;
     Organisation org;
 
     @BeforeEach
     void setUp() {
         input = Mockito.mock(ConsoleInput.class);
+        output = Mockito.mock(ConsoleOutput.class);
         org = new Organisation("test", input);
         org.setHierarchy("title 1");
         org.setHierarchy("title 2");
-        sut = new OrganisationMenu(input, org);
+        sut = new OrganisationMenu(input, output, org);
     }
     
     @Test

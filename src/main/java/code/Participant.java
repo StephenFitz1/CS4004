@@ -9,7 +9,7 @@ public class Participant {
     private MeetingCalendar meetings;
     private ArrayList<Meeting> collabMeetings;
     private ArrayList<Meeting> notifications;
-    private ArrayList<String> changesNotifications;
+    private ArrayList<String> changesNotification;
     private Organisation organisation;
 
     public Participant(String name, String title, Organisation organisation) {
@@ -24,7 +24,7 @@ public class Participant {
         this.collabMeetings = new ArrayList<>();
         this.notifications = new ArrayList<>();
         this.organisation = organisation;
-        this.changesNotifications = new ArrayList<>();
+        this.changesNotification = new ArrayList<>();
     }
 
     public String getName() {
@@ -50,8 +50,8 @@ public class Participant {
         return collabMeetings;
     }
 
-    public ArrayList<String> getChangesNotifications() {
-        return changesNotifications;
+    public ArrayList<String> getChangesNotification() {
+        return changesNotification;
     }
 
     public Organisation getOrganisation() {
@@ -64,10 +64,6 @@ public class Participant {
 
     public void emptyNotifications() {
         notifications = new ArrayList<>();
-    }
-
-    public void emptyChangesNotifications() {
-        changesNotifications = new ArrayList<>();
     }
 
     public void addAppointment(String appointment) {
@@ -83,7 +79,7 @@ public class Participant {
     }
 
     public void addChangeNotification(String s) {
-        changesNotifications.add(s);
+        changesNotification.add(s);
     }
 
     public void addCollabMeeting(Meeting s) {
