@@ -2,6 +2,8 @@ package code;
 
 import java.util.ArrayList;
 
+//If removing meeting as participant, participant should be removed from list of participants
+
 /**
  An appointment calendar.
  */
@@ -47,6 +49,29 @@ public class MeetingCalendar {
                  (meeting.getEndingTime().compareTo(existingMeeting.getEndingTime()) < 0 &&
                          meeting.getEndingTime().compareTo(existingMeeting.getStartingTime()) > 0)) {
             return true;
+         }
+      }
+
+      return false;
+   }
+
+   public boolean overlap(Meeting meeting, Meeting skip) {
+      if (meetings.isEmpty()) {
+         return false;
+      }
+
+      ArrayList<Meeting> tempList = getMeetingsForDay(meeting.getDate());
+
+      for (Meeting existingMeeting: tempList) {
+         if (existingMeeting != skip) {
+            if ((meeting.getEndingTime().compareTo(existingMeeting.getStartingTime()) > 0 &&
+                    meeting.getStartingTime().compareTo(existingMeeting.getEndingTime()) < 0) ||
+                    (meeting.getStartingTime().compareTo(existingMeeting.getStartingTime()) > 1 &&
+                            meeting.getStartingTime().compareTo(existingMeeting.getEndingTime()) < 0) ||
+                    (meeting.getEndingTime().compareTo(existingMeeting.getEndingTime()) < 0 &&
+                            meeting.getEndingTime().compareTo(existingMeeting.getStartingTime()) > 0)) {
+               return true;
+            }
          }
       }
 

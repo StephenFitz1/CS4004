@@ -95,13 +95,13 @@ public class MeetingsMenu extends Menu<Meeting> {
                                 }
                             }
                             case "D" -> {
-                                System.out.print("Enter new date:");
-                                var temp = this.input.nextLine();
+                                System.out.print("Enter new date (dd-mm-yyyy):");
+                                var newDate = this.input.nextLine();
 
                                 var result = false;
 
                                 try {
-                                    result = meeting.changeAppointmentDate(temp, rankOfParticipant);
+                                    result = meeting.changeAppointmentDate(newDate, rankOfParticipant);
 
                                     if (result) {
                                         System.out.println("New date was set for this appointment.");
@@ -115,7 +115,7 @@ public class MeetingsMenu extends Menu<Meeting> {
                                 System.out.println();
                             }
                             case "S" -> {
-                                System.out.print("Enter new starting time:");
+                                System.out.print("Enter new starting time (hh:mm):");
                                 var temp = this.input.nextLine();
 
                                 var result = meeting.changeAppointmentStartingTime(temp, rankOfParticipant);
@@ -129,7 +129,7 @@ public class MeetingsMenu extends Menu<Meeting> {
                                 System.out.println();
                             }
                             case "E" -> {
-                                System.out.println("Enter new ending time:");
+                                System.out.println("Enter new ending time (hh:mm):");
                                 var temp = this.input.nextLine();
 
                                 var result = meeting.changeAppointmentEndingTime(temp, rankOfParticipant);
@@ -155,6 +155,7 @@ public class MeetingsMenu extends Menu<Meeting> {
                                     while (true) {
                                         try {
                                             meeting.addRoom(name);
+                                            break;
                                         } catch (Exception ex) {
                                             System.out.println(ex.getMessage());
                                             System.out.print("     Enter name of the room: ");
@@ -168,6 +169,7 @@ public class MeetingsMenu extends Menu<Meeting> {
                             }
                             case "Q" -> {
                                 if (meeting.getRank() <= rankOfParticipant) {
+                                    System.out.println();
                                     new RoomMenu(this.input, meeting.getRoom()).run();
                                     System.out.println();
                                 } else {
@@ -213,7 +215,7 @@ public class MeetingsMenu extends Menu<Meeting> {
                 }
             }
 
-            System.out.println("You can not pick owner.");
+            System.out.println("(You can not pick owner)");
             System.out.print("Pick a line above: ");
 
             while (true) {

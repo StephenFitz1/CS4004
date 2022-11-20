@@ -27,6 +27,7 @@ class MeetingTest {
 
         assertEquals("12:00", sut.toString());
     }
+
     @Test
     void testEmptyConstructorArg() {
         assertThrows(IllegalArgumentException.class,
@@ -59,7 +60,8 @@ class MeetingTest {
 
     @Test
     void testConstructorArgument_singleChar() {
-        assertThrows(IllegalArgumentException.class, () -> new Meeting("s                       ",  new Participant("asdf", "level1", org)));
+        assertThrows(IllegalArgumentException.class, () -> new Meeting("s                       ",
+                new Participant("asdf", "level1", org)));
     }
 
     @Test

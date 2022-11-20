@@ -22,6 +22,10 @@ public class Room {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setRequirement(String index) {
         if (!requirements.containsKey(index)) {
             throw new IllegalArgumentException("There is no such requirement in the list.");

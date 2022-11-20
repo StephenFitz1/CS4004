@@ -16,16 +16,20 @@ public class ParticipantMenu extends Menu<Meeting>{
     public void run() {
         boolean more = true;
 
-        if (!participant.getChangesNotification().isEmpty()) {
+        if (!participant.getChangesNotifications().isEmpty()) {
+            System.out.println("Some of your meetings have been changed.");
             int i = 1;
-            for (String s: participant.getChangesNotification()) {
-                System.out.println(s);
+            for (String s: participant.getChangesNotifications()) {
+                System.out.println(i++ + ") " + s);
             }
+            participant.emptyChangesNotifications();
+
+            System.out.println();
         }
 
         //Add appointment from other participants.
         if (!participant.getCollabMeetings().isEmpty()) {
-            System.out.println("You have new meeting to add");
+            System.out.println("You have new meeting to add.");
 
             for (Meeting meeting : participant.getCollabMeetings()) {
                 System.out.println(meeting.toString());
@@ -46,6 +50,8 @@ public class ParticipantMenu extends Menu<Meeting>{
             }
 
             participant.emptyCollabAppointments();
+
+            System.out.println();
         }
 
         if (!participant.getNotifications().isEmpty()) {
@@ -54,6 +60,8 @@ public class ParticipantMenu extends Menu<Meeting>{
                 System.out.println(notification.toString());
             }
             participant.emptyNotifications();
+
+            System.out.println();
         }
 
         while (more) {
@@ -73,13 +81,13 @@ public class ParticipantMenu extends Menu<Meeting>{
                         System.out.print("  Enter your appointment description: ");
                         String description = this.input.nextLine().trim();
 
-                        System.out.print("  Enter your appointment date: ");
+                        System.out.print("  Enter your appointment date (dd-mm-yyyy): ");
                         String date = this.input.nextLine().trim();
 
-                        System.out.print("  Enter your appointment starting time: ");
+                        System.out.print("  Enter your appointment starting time (hh:mm): ");
                         String from = this.input.nextLine().trim();
 
-                        System.out.print("  Enter your appointment ending time: ");
+                        System.out.print("  Enter your appointment ending time (hh:mm): ");
                         String to = this.input.nextLine().trim();
 
                         String menu = description + " " + date + " " + from + " " + to;

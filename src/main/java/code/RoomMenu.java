@@ -16,6 +16,7 @@ public class RoomMenu extends Menu<String>{
     @Override
     public void run() {
         while (true) {
+            System.out.println("---> ROOM MENU");
             System.out.println("A)dd new requirement,\n" +
                     "C)hange requirements,\n" +
                     "S)how all requirements,\n" +
@@ -41,6 +42,7 @@ public class RoomMenu extends Menu<String>{
 
                             if (result) {
                                 System.out.println("Your new requirement was add to the room");
+                                System.out.println();
                                 break;
                             }
                         } catch (Exception ex) {
@@ -50,6 +52,7 @@ public class RoomMenu extends Menu<String>{
                 }
 
                 case ("C") -> {
+                    System.out.println("CHANGE REQUIREMENTS");
                     showRequirements(room.getRequirements());
 
                     String index = "";
@@ -65,19 +68,23 @@ public class RoomMenu extends Menu<String>{
                     }
 
                     room.setRequirement(index);
+                    System.out.println();
                 }
 
                 case ("S") -> {
                     showRequirements(room.getRequirements());
+                    System.out.println();
                 }
                 case ("L") -> {
                     showRequirementsUsed(room);
+                    System.out.println();
                 }
                 case "B" -> {
-                    break;
+                    return;
                 }
                 default -> {
                     System.out.println("Something went wrong.");
+                    System.out.println();
                 }
             }
         }

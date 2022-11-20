@@ -19,8 +19,7 @@ public class MeetingsSystem
 
       System.out.print("Enter master password: ");
 
-//      var password = input.nextLine();
-      var password = "123";
+      var password = input.nextLine();
 
       if (pwdManager.CheckPassword(password)) {
          StartMenu menu = new StartMenu(input);

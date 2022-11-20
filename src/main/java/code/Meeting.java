@@ -1,7 +1,6 @@
 package code;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Meeting {
     private String description;
@@ -164,22 +163,20 @@ public class Meeting {
     private void changeAppointmentDate(String newDate) {
         var tempMeeting = new Meeting(owner, newDate, startingTime.toString(), endingTime.toString());
 
-        if (owner.getMeetingCalendar().overlap(tempMeeting)) {
+        if (owner.getMeetingCalendar().overlap(tempMeeting, this)) {
             throw new IllegalArgumentException("You can not change date. Somebody have another meeting at this time on that day.");
         } else {
             for (Participant participant: participants) {
-                if (participant.getMeetingCalendar().overlap(tempMeeting)) {
+                if (participant.getMeetingCalendar().overlap(tempMeeting, this)) {
                     throw new IllegalArgumentException("You can not change date. Somebody has another meeting at this time on that day.");
                 }
             }
 
             for (Participant p: participants) {
-                p.addChangeNotification("Date was changed from " + toString() + "\n" +
-                        "to " + newDate);
+                p.addChangeNotification("Date was changed from " + toString() + " to " + newDate);
             }
 
-            owner.addChangeNotification("Date was changed from " + toString() + "\n" +
-                    "to " + newDate);
+            owner.addChangeNotification("Date was changed from " + toString() + " to " + newDate);
 
             date = new MeetingDate(newDate);
 
@@ -189,11 +186,11 @@ public class Meeting {
     private void changeAppointmentStartingTime(String newStartingTime) {
         var tempMeeting = new Meeting(owner, date.toString(), newStartingTime, endingTime.toString());
 
-        if (owner.getMeetingCalendar().overlap(tempMeeting)) {
+        if (owner.getMeetingCalendar().overlap(tempMeeting, this)) {
             throw new IllegalArgumentException("You can not change starting time. Somebody has another meeting at this time.");
         } else {
             for (Participant participant: participants) {
-                if (participant.getMeetingCalendar().overlap(tempMeeting)) {
+                if (participant.getMeetingCalendar().overlap(tempMeeting, this)) {
                     throw new IllegalArgumentException("You can not change starting time. Somebody has another meeting at this time.");
                 }
             }
@@ -214,11 +211,11 @@ public class Meeting {
     private void changeAppointmentEndingTime(String newEndingTime) {
         var tempMeeting = new Meeting(owner, date.toString(), startingTime.toString(), newEndingTime);
 
-        if (owner.getMeetingCalendar().overlap(tempMeeting)) {
+        if (owner.getMeetingCalendar().overlap(tempMeeting,this)) {
             throw new IllegalArgumentException("You can not change starting time. You have another meeting at this time.");
         } else {
             for (Participant participant: participants) {
-                if (participant.getMeetingCalendar().overlap(tempMeeting)) {
+                if (participant.getMeetingCalendar().overlap(tempMeeting, this)) {
                     throw new IllegalArgumentException("You can not change starting time. Somebody has another meeting at this time.");
                 }
             }

@@ -19,6 +19,7 @@ class OrganisationMenuTest {
         org.setHierarchy("title 2");
         sut = new OrganisationMenu(input, org);
     }
+    
     @Test
     void testAddCollaborator() {
         Mockito.when(input.nextLine()).thenReturn("A", "test", "1", "B");
@@ -31,7 +32,7 @@ class OrganisationMenuTest {
         assertEquals("Name: test Title: title 1", participant.toString());
     }
 
-    //new
+    
     @Test
     void testPickCollaborator() {
         Mockito.when(input.nextLine()).thenReturn("A", "test", "1",
@@ -46,7 +47,7 @@ class OrganisationMenuTest {
         assertEquals("test meeting 20-12-2002 13:00 15:00", meeting.toString());
     }
 
-    //new
+    
     @Test
     void testRemoveCollaborator() {
         Mockito.when(input.nextLine()).thenReturn("A", "test", "1", "R", "1", "B", "B");

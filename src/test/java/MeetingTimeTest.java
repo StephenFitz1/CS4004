@@ -6,22 +6,27 @@ import java.time.format.DateTimeParseException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MeetingTimeTest {
+
     @Test
     void testNullConstructor() {
         assertThrows(NullPointerException.class, () -> new MeetingTime(null));
     }
+
     @Test
     void testEmptyConstructor() {
         assertThrows(DateTimeParseException.class, () -> new MeetingTime(""));
     }
+
     @Test
     void testWrongData() {
         assertThrows(DateTimeParseException.class, () -> new MeetingTime("99:98"));
     }
+
     @Test
     void testWrongFormat() {
         assertThrows(DateTimeParseException.class, () -> new MeetingTime("99/98"));
     }
+
     @Test
     void testCorrectInputEveningTime() {
         var sut = new MeetingTime("16:07");
@@ -29,6 +34,7 @@ class MeetingTimeTest {
         assertEquals(16, sut.getHours());
         assertEquals(7, sut.getMinutes());
     }
+
     @Test
     void testCorrectInputMorningTime() {
         var sut = new MeetingTime("6:07");
